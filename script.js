@@ -85,3 +85,27 @@ const displayMovemets = function (movements) {
 
 
 displayMovemets(account1.movements);
+
+
+const user = 'Jonas Schmedtmann Ted';
+
+
+
+
+const createUsernames = function (accs) {
+  accs.forEach((acc) => {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map((element) => element[0])
+      .join('');
+  })
+};
+
+
+createUsernames(accounts)
+
+console.log(accounts);
+
+
+
