@@ -5,6 +5,9 @@
 
 // BANKIST APP
 
+
+
+
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
@@ -105,7 +108,36 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts)
 
-console.log(accounts);
+
+const calcDisplayBalanc = function (movements) {
+  const balance = movements.reduce((acc, cur) => acc += cur, 0)
+  labelBalance.textContent = `${balance}EUR`;
+};
+
+
+calcDisplayBalanc(account1.movements);
 
 
 
+const calcDisplaySummary = function (movements) {
+
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const out = movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0);
+
+
+  const interest = movements.filter(mov => mov > 0)
+    .map((deposit => deposit * 1.2 / 100))
+    .filter((mov, i, arr) => {
+      return mov > 1
+    }).reduce((acc, int) => acc + int, 0);
+
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumIn.textContent = `${incomes}€`;
+  labelSumInterest.textContent = `${interest}€`;
+}
+
+
+calcDisplaySummary(account1.movements)
