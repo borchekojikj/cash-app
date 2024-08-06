@@ -158,8 +158,8 @@ const updateUi = function (acc) {
 
 
 // Event handlers
-
 let currentAccount;
+
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
@@ -190,10 +190,11 @@ btnLogin.addEventListener('click', function (e) {
   console.log('login');
 })
 
-console.log(accounts);
+
+// console.log(accounts);
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-
+  console.log('Acc: ' + currentAccount);
   const username = inputTransferTo.value;
 
   const reciverAcc = accounts.find(acc => acc.username === username);
@@ -214,8 +215,30 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Positiv movement to transer user
   }
+});
 
 
+btnClose.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const usernameClose = inputCloseUsername.value;
+  const pinClose = Number(inputClosePin.value);
+
+  inputCloseUsername.value = inputClosePin.value = '';
+  if (usernameClose === currentAccount.username &&
+    pinClose === currentAccount.pin
+  ) {
+    // Hide UI
+    containerApp.style.opacity = 0;
+
+    // Delete user
+    const index = accounts.findIndex(acc => acc.username === usernameClose);
+
+    accounts.splice(index, 1);
+
+
+    console.log('You account has been deleted!');
+  }
 
 
 })
